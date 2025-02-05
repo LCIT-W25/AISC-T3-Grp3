@@ -1,0 +1,27 @@
+name: SonarQube
+
+on:
+  push:
+    branches:
+      - test       # Trigger SonarQube analysis on push to the test branch
+  pull_request:
+    branches:
+      - test       # Trigger SonarQube analysis on PR to the test branch
+
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+
+    - name: SonarQube Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
