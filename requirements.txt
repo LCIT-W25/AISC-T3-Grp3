@@ -1,0 +1,11 @@
+streamlit
+requests
+joblib
+tensorflow
+numpy
+opencv-python
+scikit-learn
+torch
+torchvision
+nltk
+pillow
