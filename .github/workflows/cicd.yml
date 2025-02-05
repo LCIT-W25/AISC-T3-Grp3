@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - test
+  pull_request:
+    branches:
+      - test
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Unit Tests
+        run: |
+          pytest unit_test/  
+
+      - name: Notify Deployment Team
+        uses: JasonEtco/create-an-issue@v2
+        with:
+          title: "New Code Ready for Deployment"
+          body: "A new version of the code is in the test branch. Please deploy it to the VM."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
