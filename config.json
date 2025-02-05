@@ -1,0 +1,6 @@
+{
+    "use_nb": true,
+    "use_svm": true,
+    "nb_version": "v2",
+    "svm_version": "v2"
+}
