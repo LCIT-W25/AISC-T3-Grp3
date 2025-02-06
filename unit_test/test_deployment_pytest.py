@@ -67,20 +67,20 @@ def test_Deployment_with_mock_config(mock_config):
     assert Deployment.config["use_svm"] is True
     assert Deployment.config["nb_version"] == "v1"
     assert Deployment.config["svm_version"] == "v2"
-
-@pytest.mark.skip(reason="Requires large model loads. Enable if you want integration tests.")
-def test_dnn_model_loading():
-    # Generate a dummy 224x224 RGB image and preprocess
-    dummy_image = np.random.randint(0, 255, (224, 224, 3), dtype=np.uint8)
-    processed = preprocess_image(dummy_image)
-
-    # Run inference
-    predictions = dnn_model.predict(processed)
-
-    # Suppose your DNN outputs 5 classes
-    assert predictions.shape == (1, 5), (
-        f"Expected shape (1, 5) for predictions, got {predictions.shape}"
-    )
+#
+# @pytest.mark.skip(reason="Requires large model loads. Enable if you want integration tests.")
+# def test_dnn_model_loading():
+#     # Generate a dummy 224x224 RGB image and preprocess
+#     dummy_image = np.random.randint(0, 255, (224, 224, 3), dtype=np.uint8)
+#     processed = preprocess_image(dummy_image)
+#
+#     # Run inference
+#     predictions = dnn_model.predict(processed)
+#
+#     # Suppose your DNN outputs 5 classes
+#     assert predictions.shape == (1, 5), (
+#         f"Expected shape (1, 5) for predictions, got {predictions.shape}"
+#     )
 
 
 @pytest.mark.skip(reason="Requires large model loads. Enable if you want integration tests.")
