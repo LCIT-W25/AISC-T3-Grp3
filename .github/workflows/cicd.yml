@@ -28,10 +28,10 @@ jobs:
         run: |
           pytest unit_test/  
 
-      - name: Notify Deployment Team
-        uses: JasonEtco/create-an-issue@v2
-        with:
-          title: "New Code Ready for Deployment"
-          body: "A new version of the code is in the test branch. Please deploy it to the VM."
+#      - name: Notify Deployment Team
+#        uses: JasonEtco/create-an-issue@v2
+#        with:
+#          title: "New Code Ready for Deployment"
+#          body: "A new version of the code is in the test branch. Please deploy it to the VM."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
