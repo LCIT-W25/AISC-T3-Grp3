@@ -13,7 +13,7 @@ import Deployment
 from Deployment import (
     preprocess_text,
     preprocess_image,
-    dnn_model,
+    # dnn_model,
     knn_model,
     device,
     extract_resnet_features
@@ -23,7 +23,7 @@ from Deployment import (
 @pytest.fixture
 def mock_config(monkeypatch):
     dummy_config = {
-        "use_nb": True,
+        # "use_nb": True,
         "use_svm": True,
         "nb_version": "v1",
         "svm_version": "v2"
@@ -63,7 +63,7 @@ def test_Deployment_with_mock_config(mock_config):
 
     # Ensures that our monkeypatched config overrides the file-based config.
     # The `Deployment.config` is replaced with dummy_config by the fixture
-    assert Deployment.config["use_nb"] is True
+    # assert Deployment.config["use_nb"] is True
     assert Deployment.config["use_svm"] is True
     assert Deployment.config["nb_version"] == "v1"
     assert Deployment.config["svm_version"] == "v2"

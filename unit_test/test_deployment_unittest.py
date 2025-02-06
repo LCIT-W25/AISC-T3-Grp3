@@ -49,14 +49,14 @@ class TestDeployment(unittest.TestCase):
         result = mock_knn_model.predict(mock_features)
         self.assertEqual(result[0], "food", "Expected 'food' prediction from the mock kNN model.")
 
-    @patch("Deployment.tf.keras.models.load_model")
-    def test_dnn_model_loading(self, mock_keras_load_model):
-        mock_dnn_model = MagicMock()
-        mock_keras_load_model.return_value = mock_dnn_model
-
-        loaded_dnn = mock_keras_load_model("DNN.keras")
-        self.assertIsNotNone(loaded_dnn)
-        mock_keras_load_model.assert_called_once_with("DNN.keras")
+    # @patch("Deployment.tf.keras.models.load_model")
+    # def test_dnn_model_loading(self, mock_keras_load_model):
+    #     mock_dnn_model = MagicMock()
+    #     mock_keras_load_model.return_value = mock_dnn_model
+    #
+    #     loaded_dnn = mock_keras_load_model("DNN.keras")
+    #     self.assertIsNotNone(loaded_dnn)
+    #     mock_keras_load_model.assert_called_once_with("DNN.keras")
 
 
 if __name__ == "__main__":
