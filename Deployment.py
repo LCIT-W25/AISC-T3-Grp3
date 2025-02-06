@@ -84,7 +84,7 @@ if use_svm:
     svm_model = joblib.load(f"svm_{svm_version}.pkl")
 
 vectorizer = joblib.load("vectorizer.pkl")
-dnn_model = tf.keras.models.load_model("DNN.keras")
+# dnn_model = tf.keras.models.load_model("DNN.keras")
 knn_model = joblib.load("knn.joblib")
 
 # Streamlit UI
