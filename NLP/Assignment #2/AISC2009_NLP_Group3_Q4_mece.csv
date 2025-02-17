@@ -1,0 +1,32 @@
+Task,Status,Key Feature,Individual Responsible
+Emoji Handling Done?,Yes,,Sherin
+Number of Emojis Handled?,Many,,Sherin
+Slang Handling Done?,Yes,,Sherin
+Number of Slangs Handled?, 100+,Custom dictionary applied,Sherin
+Abbreviations Handled?,Yes,Expanded common abbreviations,Sherin
+Number of Abbreviations Handled?,50+,Custom dictionary applied,Sherin
+Class Separability Checked?,Yes,Used F1 Score & AUC as metrics,Sherin
+Featureset with Best Separability?, Word Embeddings,Tokenized & padded tweet sequences,Sherin
+Train and Test Handled Correctly?,Yes,Used train_test_split,Sherin
+Steps Taken Before Train-Test Split?,Yes,Preprocessing applied to full dataset,Sherin
+Steps Taken After Train-Test Split?, Yes,"Tokenization, Padding",Sherin
+Config of model trained?,LSTM (3 Layers) + Dropout,128 ? 64 ? 32 LSTM layers,Sherin
+Train Time,Completed,Varies based on batch size & epochs,Sherin
+Training Data Check,Done,-,Sherin
+Confusion Matrix Built?, Yes,See below,Rahul Batherikal
+F1 Score for Positive?,Computed,f1_test[1] (from F1 score code),Rahul Batherikal
+F1 Score for Negative?,Computed,f1_test[0] (from F1 score code),Rahul Batherikal
+AUC plotted?, NO,,Rahul Batherikal
+AUC Value, Computed,0.372841686,Rahul Batherikal
+Accuracy computed?, Yes,test_accuracy,Rahul Batherikal
+Feature Engineering,Yes,"Word Embeddings, Text Processing",Rahul Batherikal
+Cross Validation,Done,0.684932053,Rahul Batherikal
+Findings of Cross Validation?, Yes,_loss: -10.0753 - val_accuracy: 0.6849,Rahul Batherikal
+Testing Data Check, Done,-,Rahul Batherikal
+Confusion Matrix Built?, Yes,See below,Rahul Batherikal
+F1 Score for Positive?,Computed,f1_test[1] (from F1 score code),Rahul Batherikal
+F1 Score for Negative?,Computed,f1_test[0] (from F1 score code),Rahul Batherikal
+Accuracy computed?, Yes,test_accuracy,Rahul Batherikal
+Next Steps,Suggested,"1. Feature Engineering & Selection:
+   - Optimize Feature Set: Naive Bayes models are often sensitive to irrelevant or highly correlated features. You can experiment with feature selectionModel Comparison*:
+  2.Compare with Other Models: After evaluating the Naive Bayes model, it can be insightful to compare its performance with other classification models, such as Logistic Regression, Support Vector Machines ",Rahul Batherikal
