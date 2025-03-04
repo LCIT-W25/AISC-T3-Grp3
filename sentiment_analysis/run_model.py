@@ -48,12 +48,3 @@ def predict_sentiment(text, model_type="rnn"):
     sentiment = "Positive" if prediction > 0.5 else "Negative"
     return sentiment, prediction
 
-# Example usage
-if __name__ == "__main__":
-    text = "The product quality is terrible and I hate it!"
-    
-    sentiment_rnn, score_rnn = predict_sentiment(text, "rnn")
-    sentiment_gru, score_gru = predict_sentiment(text, "gru")
-    
-    print(f"RNN Sentiment: {sentiment_rnn}, Score: {score_rnn:.4f}")
-    print(f"GRU Sentiment: {sentiment_gru}, Score: {score_gru:.4f}")
