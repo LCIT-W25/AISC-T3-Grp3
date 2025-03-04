@@ -10,3 +10,10 @@ torchvision
 nltk
 pillow
 pytest
+
+pandas
+gensim
+matplotlib
+seaborn
+scikeras
+emoji
