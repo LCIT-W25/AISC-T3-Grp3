@@ -1,0 +1,1 @@
+{"input_size": [224, 224], "model": "EfficientNetB0", "num_classes": 5, "class_names": ["drink", "food", "inside", "menu", "outside"]}
