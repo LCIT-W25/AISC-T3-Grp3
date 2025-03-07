@@ -1,0 +1,10 @@
+# Required metadata
+sonar.projectKey=casestudy1
+sonar.projectName=AISC-T3-Grp3
+sonar.projectVersion=1.0
+
+# Source code directory
+sonar.sources=.
+
+# If you are using a different language, specify that here
+# sonar.language=java
