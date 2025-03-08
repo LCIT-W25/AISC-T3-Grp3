@@ -97,14 +97,7 @@ gru_label_encoder = load_pickle("sentiment_analysis/rnn_label_encoder.pickle")
 
 # --- Image label encoders ---
 cnn_label_encoder = load_pickle("image_classification/label_encoder_cnn.pkl")
-efficientnet_label_encoder = load_pickle(
-    "image_classification/label_encoder_efficientnet.pkl")
-
-# --- NEW: Image tokenizers (if truly needed by your pipeline) ---
-cnn_tokenizer = load_pickle("image_classification/tokenizer_cnn.pkl")
-efficientnet_tokenizer = load_pickle(
-    "image_classification/tokenizer_efficientnet.pkl")
-
+efficientnet_label_encoder = load_pickle("image_classification/label_encoder_efficientnet.pkl")
 
 # DEFINE PREDICTION FUNCTIONS
 def predict_sentiment(text, model, tokenizer, label_encoder, max_len=100):
@@ -194,8 +187,7 @@ if uploaded_image:
             cnn_label, cnn_conf = predict_image(
                 img,
                 cnn_model,
-                cnn_label_encoder,
-                tokenizer=cnn_tokenizer  # <-- Use CNN tokenizer
+                cnn_label_encoder
             )
             st.write(
                 f"**CNN Model Prediction:** {cnn_label} (Confidence: {cnn_conf:.2f})")
@@ -208,8 +200,7 @@ if uploaded_image:
             eff_label, eff_conf = predict_image(
                 img,
                 transfer_model,
-                efficientnet_label_encoder,
-                tokenizer=efficientnet_tokenizer  # <-- Use EfficientNet tokenizer
+                efficientnet_label_encoder
             )
             st.write(
                 f"**EfficientNet Prediction:** {eff_label} (Confidence: {eff_conf:.2f})")
