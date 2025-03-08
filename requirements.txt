@@ -64,7 +64,7 @@ requests==2.32.3
 rich==13.9.4
 rpds-py==0.23.1
 scikit-learn==1.6.1
-scipy==1.15.2
+scipy==1.13.1
 setuptools==75.8.2
 shap==0.47.0
 six==1.17.0
