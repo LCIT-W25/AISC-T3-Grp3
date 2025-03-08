@@ -39,7 +39,7 @@ def test_cleanup_model():
 
 
 def test_predict_image():
-    
+
     # Create a mock model and assign its predict method manually.
     mock_model = MagicMock()
     mock_model.predict = MagicMock(return_value=np.array([[0.8, 0.2]]))
