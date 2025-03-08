@@ -124,7 +124,7 @@ def predict_sentiment(text, model, tokenizer, label_encoder, max_len=100):
     return label, float(confidence)
 
 
-def predict_image(img, model, label_encoder, tokenizer=None):
+def predict_image(img, model, label_encoder):
 
     # Standard image preprocessing
     img = img.resize((224, 224))

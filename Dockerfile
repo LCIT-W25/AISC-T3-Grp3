@@ -1,13 +1,18 @@
+# Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
+# Set the working directory in the container
 WORKDIR /app
 
-COPY requirements.txt .
+# Copy all files from your project into the container
+COPY . /app
 
-RUN python -m pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependencies. Ensure you have a requirements.txt in your repo.
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# Expose the port that Streamlit uses (default is 8501)
+EXPOSE 8501
 
-CMD ["python", "Deploy.py"]
-
+# Set the entrypoint to run your Streamlit app.
+CMD ["streamlit run Deploy.py --server.enableCORS=false --server.port=8501"]
