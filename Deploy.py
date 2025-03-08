@@ -18,7 +18,7 @@ def download_cnn_model():
     """
     Reads the Drive link from 'image_classification/link for CNN Model.txt',
     parses the file ID, constructs a direct download URL, and downloads
-    the model file (cnn_model_temp.h5) if it doesn't already exist.
+    the model file (cnn_model.h5) if it doesn't already exist.
     """
     text_file_path = "image_classification/link for CNN Model.txt"
     with open(text_file_path, "r") as f:
@@ -50,7 +50,7 @@ def download_cnn_model():
 # =============================================================================
 
 def cleanup_model(path):
-    """Remove the temporary model file if it exists."""
+    """Remove the model file if it exists."""
     if path and os.path.exists(path):
         os.remove(path)
 
@@ -79,36 +79,41 @@ else:
     cnn_model = None
 
 
-# Load other local models (if you don't want to download them from Drive)
 @st.cache_resource
 def load_model(path):
     """Generic function to load a Keras model from a local path."""
     return tf.keras.models.load_model(path)
 
 
+# --- Other local models (EfficientNet, RNN, GRU) ---
 transfer_model = load_model("image_classification/efficientnet_transfer_model.h5")
-
 rnn_model = load_model("sentiment_analysis/rnn_model.h5")
 gru_model = load_model("sentiment_analysis/gru_model.h5")
 
 
-# Load tokenizers
+# --- Function to load pickle files (tokenizers, label encoders, etc.) ---
 @st.cache_data
 def load_pickle(path):
     with open(path, 'rb') as handle:
         return pickle.load(handle)
 
 
+# --- Sentiment tokenizers ---
 rnn_tokenizer = load_pickle("sentiment_analysis/rnn_tokenizer.pickle")
 gru_tokenizer = load_pickle("sentiment_analysis/gru_tokenizer.pkl")
 
-# Load label encoders
+# --- Sentiment label encoders ---
+# (Adjust paths if you have separate pickles for RNN vs GRU)
+rnn_label_encoder = load_pickle("sentiment_analysis/rnn_label_encoder.pickle")
+gru_label_encoder = load_pickle("sentiment_analysis/rnn_label_encoder.pickle")
+
+# --- Image label encoders ---
 cnn_label_encoder = load_pickle("image_classification/label_encoder_cnn.pkl")
 efficientnet_label_encoder = load_pickle("image_classification/label_encoder_efficientnet.pkl")
 
-# If you have label encoders for sentiment:
-rnn_label_encoder = load_pickle("sentiment_analysis/rnn_label_encoder.pickle")
-gru_label_encoder = load_pickle("sentiment_analysis/rnn_label_encoder.pickle")
+# --- NEW: Image tokenizers (if truly needed by your pipeline) ---
+cnn_tokenizer = load_pickle("image_classification/tokenizer_cnn.pkl")
+efficientnet_tokenizer = load_pickle("image_classification/tokenizer_efficientnet.pkl")
 
 
 # =============================================================================
@@ -136,11 +141,9 @@ def predict_sentiment(text, model, tokenizer, label_encoder, max_len=100):
     return label, float(confidence)
 
 
-def predict_image(img, model, label_encoder):
-    """
-    Predict the class label and confidence for a given PIL image
-    using the specified Keras model and label encoder.
-    """
+def predict_image(img, model, label_encoder, tokenizer=None):
+
+    # Standard image preprocessing
     img = img.resize((224, 224))
     img_array = img_to_array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
@@ -161,7 +164,7 @@ def predict_image(img, model, label_encoder):
 # STEP 6: STREAMLIT UI
 # =============================================================================
 
-st.title("AI Model Deployment with Temporary CNN Model Download")
+st.title("AI Model Deployment with Tokenizers & Temporary CNN Model Download")
 
 # ---------- Sentiment Analysis ----------
 st.header("Sentiment Analysis")
@@ -170,14 +173,24 @@ text_input = st.text_area("Enter text for sentiment analysis:")
 if st.button("Analyze Sentiment"):
     # RNN Model Prediction
     if rnn_model is not None:
-        rnn_label, rnn_conf = predict_sentiment(text_input, rnn_model, rnn_tokenizer, rnn_label_encoder)
+        rnn_label, rnn_conf = predict_sentiment(
+            text_input,
+            rnn_model,
+            rnn_tokenizer,
+            rnn_label_encoder
+        )
         st.write(f"**RNN Model Prediction:** {rnn_label} (Confidence: {rnn_conf:.2f})")
     else:
         st.warning("RNN model not loaded.")
 
     # GRU Model Prediction
     if gru_model is not None:
-        gru_label, gru_conf = predict_sentiment(text_input, gru_model, gru_tokenizer, gru_label_encoder)
+        gru_label, gru_conf = predict_sentiment(
+            text_input,
+            gru_model,
+            gru_tokenizer,
+            gru_label_encoder
+        )
         st.write(f"**GRU Model Prediction:** {gru_label} (Confidence: {gru_conf:.2f})")
     else:
         st.warning("GRU model not loaded.")
@@ -193,14 +206,24 @@ if uploaded_image:
     if st.button("Classify Image"):
         # CNN Model
         if cnn_model is not None:
-            cnn_label, cnn_conf = predict_image(img, cnn_model, cnn_label_encoder)
+            cnn_label, cnn_conf = predict_image(
+                img,
+                cnn_model,
+                cnn_label_encoder,
+                tokenizer=cnn_tokenizer  # <-- Use CNN tokenizer
+            )
             st.write(f"**CNN Model Prediction:** {cnn_label} (Confidence: {cnn_conf:.2f})")
         else:
             st.warning("CNN model not loaded. Check download link or file paths.")
 
         # EfficientNet Model
         if transfer_model is not None:
-            eff_label, eff_conf = predict_image(img, transfer_model, efficientnet_label_encoder)
+            eff_label, eff_conf = predict_image(
+                img,
+                transfer_model,
+                efficientnet_label_encoder,
+                tokenizer=efficientnet_tokenizer  # <-- Use EfficientNet tokenizer
+            )
             st.write(f"**EfficientNet Prediction:** {eff_label} (Confidence: {eff_conf:.2f})")
         else:
             st.warning("EfficientNet model not loaded.")

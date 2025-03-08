@@ -5,10 +5,6 @@ from unittest.mock import patch, mock_open, MagicMock
 from PIL import Image
 import tempfile
 
-# IMPORTANT:
-# Replace `app` below with the name of your main Streamlit Python file
-# without the .py extension. For example, if your code is in `app.py`,
-# then do: from app import download_cnn_model, cleanup_model, predict_sentiment, predict_image
 from Deploy import (
     download_cnn_model,
     cleanup_model,
@@ -83,7 +79,7 @@ def test_predict_sentiment():
     mock_label_encoder = MagicMock()
     mock_label_encoder.inverse_transform.return_value = ["class_1"]
 
-    text = "Sample text"
+    text = "hi is this good food"
 
     # Call the function.
     label, conf = predict_sentiment(
