@@ -10,6 +10,8 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
 # READ THE GOOGLE DRIVE LINK FROM TEXT FILE & DOWNLOAD CNN MODEL
+
+
 def download_cnn_model():
 
     text_file_path = "image_classification/link for CNN Model.txt"
@@ -37,6 +39,8 @@ def download_cnn_model():
     return output_path
 
 # CLEANUP FUNCTION TO REMOVE DOWNLOADED MODEL ON EXIT
+
+
 def cleanup_model(path):
     """Remove the model file if it exists."""
     if path and os.path.exists(path):
@@ -48,10 +52,13 @@ cnn_model_path = download_cnn_model()  # Download the CNN model at startup
 atexit.register(lambda: cleanup_model(cnn_model_path))
 
 # LOAD ALL MODELS, TOKENIZERS, AND LABEL ENCODERS
+
+
 @st.cache_resource
 def load_cnn_model(path):
     """Load the CNN model from the given path."""
     return tf.keras.models.load_model(path)
+
 
 if cnn_model_path:
     cnn_model = load_cnn_model(cnn_model_path)
@@ -66,7 +73,8 @@ def load_model(path):
 
 
 # --- Other local models (EfficientNet, RNN, GRU) ---
-transfer_model = load_model("image_classification/efficientnet_transfer_model.h5")
+transfer_model = load_model(
+    "image_classification/efficientnet_transfer_model.h5")
 rnn_model = load_model("sentiment_analysis/rnn_model.h5")
 gru_model = load_model("sentiment_analysis/gru_model.h5")
 
@@ -89,11 +97,13 @@ gru_label_encoder = load_pickle("sentiment_analysis/rnn_label_encoder.pickle")
 
 # --- Image label encoders ---
 cnn_label_encoder = load_pickle("image_classification/label_encoder_cnn.pkl")
-efficientnet_label_encoder = load_pickle("image_classification/label_encoder_efficientnet.pkl")
+efficientnet_label_encoder = load_pickle(
+    "image_classification/label_encoder_efficientnet.pkl")
 
 # --- NEW: Image tokenizers (if truly needed by your pipeline) ---
 cnn_tokenizer = load_pickle("image_classification/tokenizer_cnn.pkl")
-efficientnet_tokenizer = load_pickle("image_classification/tokenizer_efficientnet.pkl")
+efficientnet_tokenizer = load_pickle(
+    "image_classification/tokenizer_efficientnet.pkl")
 
 
 # DEFINE PREDICTION FUNCTIONS
@@ -150,7 +160,8 @@ if st.button("Analyze Sentiment"):
             rnn_tokenizer,
             rnn_label_encoder
         )
-        st.write(f"**RNN Model Prediction:** {rnn_label} (Confidence: {rnn_conf:.2f})")
+        st.write(
+            f"**RNN Model Prediction:** {rnn_label} (Confidence: {rnn_conf:.2f})")
     else:
         st.warning("RNN model not loaded.")
 
@@ -162,13 +173,16 @@ if st.button("Analyze Sentiment"):
             gru_tokenizer,
             gru_label_encoder
         )
-        st.write(f"**GRU Model Prediction:** {gru_label} (Confidence: {gru_conf:.2f})")
+        st.write(
+            f"**GRU Model Prediction:** {gru_label} (Confidence: {gru_conf:.2f})")
     else:
         st.warning("GRU model not loaded.")
 
 # ---------- Image Classification ----------
 st.header("Image Classification")
-uploaded_image = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
+uploaded_image = st.file_uploader(
+    "Upload an image", type=[
+        "jpg", "png", "jpeg"])
 
 if uploaded_image:
     img = load_img(uploaded_image)
@@ -183,9 +197,11 @@ if uploaded_image:
                 cnn_label_encoder,
                 tokenizer=cnn_tokenizer  # <-- Use CNN tokenizer
             )
-            st.write(f"**CNN Model Prediction:** {cnn_label} (Confidence: {cnn_conf:.2f})")
+            st.write(
+                f"**CNN Model Prediction:** {cnn_label} (Confidence: {cnn_conf:.2f})")
         else:
-            st.warning("CNN model not loaded. Check download link or file paths.")
+            st.warning(
+                "CNN model not loaded. Check download link or file paths.")
 
         # EfficientNet Model
         if transfer_model is not None:
@@ -195,6 +211,7 @@ if uploaded_image:
                 efficientnet_label_encoder,
                 tokenizer=efficientnet_tokenizer  # <-- Use EfficientNet tokenizer
             )
-            st.write(f"**EfficientNet Prediction:** {eff_label} (Confidence: {eff_conf:.2f})")
+            st.write(
+                f"**EfficientNet Prediction:** {eff_label} (Confidence: {eff_conf:.2f})")
         else:
             st.warning("EfficientNet model not loaded.")

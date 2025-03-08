@@ -21,6 +21,8 @@ rnn_model = tf.keras.models.load_model(RNN_MODEL_PATH)
 gru_model = tf.keras.models.load_model(GRU_MODEL_PATH)
 
 # Function to preprocess text
+
+
 def preprocess_text(text, model_type="rnn", max_len=100):
     if model_type == "rnn":
         tokenizer = rnn_tokenizer
@@ -34,6 +36,8 @@ def preprocess_text(text, model_type="rnn", max_len=100):
     return padded
 
 # Function to predict sentiment using a specified model
+
+
 def predict_sentiment(text, model_type="rnn"):
     processed_text = preprocess_text(text, model_type)
 
@@ -47,4 +51,3 @@ def predict_sentiment(text, model_type="rnn"):
     prediction = model.predict(processed_text)[0][0]
     sentiment = "Positive" if prediction > 0.5 else "Negative"
     return sentiment, prediction
-

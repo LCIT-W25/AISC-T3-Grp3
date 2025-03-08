@@ -18,7 +18,11 @@ from Deploy import (
 @patch("os.path.exists", return_value=False)
 @patch("re.search")
 @patch("gdown.download", return_value="image_classification/cnn_model.h5")
-def test_download_cnn_model(mock_gdown, mock_re_search, mock_exists, mock_file):
+def test_download_cnn_model(
+        mock_gdown,
+        mock_re_search,
+        mock_exists,
+        mock_file):
     # Mock the regex match so it returns a group that looks like a file ID
     mock_re_search.return_value.group.return_value = "16Vwm2aar9Qo0e1ZvJkUM0GPpG402cekI"
 
