@@ -15,4 +15,4 @@ RUN pip install --upgrade pip && \
 EXPOSE 8501
 
 # Set the entrypoint to run your Streamlit app.
-CMD ["streamlit run Deploy.py --server.enableCORS=false --server.port=8501"]
+CMD ["streamlit", "run", "Deploy.py", "--server.enableCORS=false", "--server.port=8501"]

@@ -138,7 +138,7 @@ def predict_image(img, model, label_encoder):
 
 # STREAMLIT UI
 
-st.title("AI Model Deployment with Tokenizers & Temporary CNN Model Download")
+st.title("AI Model Deployment")
 
 # ---------- Sentiment Analysis ----------
 st.header("Sentiment Analysis")
