@@ -39,9 +39,7 @@ def test_cleanup_model():
 
 
 def test_predict_image():
-    """
-    Tests that predict_image returns the correct label and confidence.
-    """
+    
     # Create a mock model and assign its predict method manually.
     mock_model = MagicMock()
     mock_model.predict = MagicMock(return_value=np.array([[0.8, 0.2]]))
@@ -64,9 +62,7 @@ def test_predict_image():
 
 
 def test_predict_sentiment():
-    """
-    Tests that predict_sentiment returns the correct label and confidence.
-    """
+
     # Create a mock model and assign its predict method manually.
     mock_model = MagicMock()
     mock_model.predict = MagicMock(return_value=np.array([[0.1, 0.9]]))

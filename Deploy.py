@@ -9,17 +9,9 @@ import gdown
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
-
-# =============================================================================
-# STEP 1: READ THE GOOGLE DRIVE LINK FROM TEXT FILE & DOWNLOAD CNN MODEL
-# =============================================================================
-
+# READ THE GOOGLE DRIVE LINK FROM TEXT FILE & DOWNLOAD CNN MODEL
 def download_cnn_model():
-    """
-    Reads the Drive link from 'image_classification/link for CNN Model.txt',
-    parses the file ID, constructs a direct download URL, and downloads
-    the model file (cnn_model.h5) if it doesn't already exist.
-    """
+
     text_file_path = "image_classification/link for CNN Model.txt"
     with open(text_file_path, "r") as f:
         link = f.read().strip()
@@ -44,34 +36,22 @@ def download_cnn_model():
 
     return output_path
 
-
-# =============================================================================
-# STEP 2: CLEANUP FUNCTION TO REMOVE DOWNLOADED MODEL ON EXIT
-# =============================================================================
-
+# CLEANUP FUNCTION TO REMOVE DOWNLOADED MODEL ON EXIT
 def cleanup_model(path):
     """Remove the model file if it exists."""
     if path and os.path.exists(path):
         os.remove(path)
 
 
-# =============================================================================
-# STEP 3: DOWNLOAD THE CNN MODEL & REGISTER CLEANUP
-# =============================================================================
-
+# DOWNLOAD THE CNN MODEL & REGISTER CLEANUP
 cnn_model_path = download_cnn_model()  # Download the CNN model at startup
 atexit.register(lambda: cleanup_model(cnn_model_path))
 
-
-# =============================================================================
-# STEP 4: LOAD ALL MODELS, TOKENIZERS, AND LABEL ENCODERS
-# =============================================================================
-
+# LOAD ALL MODELS, TOKENIZERS, AND LABEL ENCODERS
 @st.cache_resource
 def load_cnn_model(path):
     """Load the CNN model from the given path."""
     return tf.keras.models.load_model(path)
-
 
 if cnn_model_path:
     cnn_model = load_cnn_model(cnn_model_path)
@@ -116,16 +96,9 @@ cnn_tokenizer = load_pickle("image_classification/tokenizer_cnn.pkl")
 efficientnet_tokenizer = load_pickle("image_classification/tokenizer_efficientnet.pkl")
 
 
-# =============================================================================
-# STEP 5: DEFINE PREDICTION FUNCTIONS
-# =============================================================================
-
+# DEFINE PREDICTION FUNCTIONS
 def predict_sentiment(text, model, tokenizer, label_encoder, max_len=100):
-    """
-    Predict the class label and confidence for a given text
-    using the specified model, tokenizer, and label encoder.
-    Assumes the model outputs a probability distribution over multiple classes.
-    """
+
     sequence = tokenizer.texts_to_sequences([text])
     padded = pad_sequences(sequence, maxlen=max_len, padding='post')
 
@@ -160,9 +133,7 @@ def predict_image(img, model, label_encoder, tokenizer=None):
     return label, float(confidence)
 
 
-# =============================================================================
-# STEP 6: STREAMLIT UI
-# =============================================================================
+# STREAMLIT UI
 
 st.title("AI Model Deployment with Tokenizers & Temporary CNN Model Download")
 
