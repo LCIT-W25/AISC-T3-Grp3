@@ -1,0 +1,11 @@
+# Required metadata
+sonar.projectKey=casestudy1
+sonar.projectName=AISC-T3-Grp3
+sonar.projectVersion=1.0
+sonar.token=sqp_17e9f190de7e2bd116e129c2de4fd20f18284447
+sonar.python.version=3.9
+
+
+# Source code directory
+sonar.sources=.
+
