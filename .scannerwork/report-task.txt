@@ -2,5 +2,5 @@ projectKey=casestudy1
 serverUrl=http://localhost:9000
 serverVersion=25.2.0.102705
 dashboardUrl=http://localhost:9000/dashboard?id=casestudy1
-ceTaskId=5092e20b-3f07-4629-9c52-3e7f6d6ed60a
-ceTaskUrl=http://localhost:9000/api/ce/task?id=5092e20b-3f07-4629-9c52-3e7f6d6ed60a
+ceTaskId=0ba23655-f329-4a57-87e1-1c0264aceb92
+ceTaskUrl=http://localhost:9000/api/ce/task?id=0ba23655-f329-4a57-87e1-1c0264aceb92
