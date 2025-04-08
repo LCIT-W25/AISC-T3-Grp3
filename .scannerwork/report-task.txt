@@ -1,0 +1,6 @@
+projectKey=CaseStudy2
+serverUrl=http://localhost:9000
+serverVersion=25.2.0.102705
+dashboardUrl=http://localhost:9000/dashboard?id=CaseStudy2
+ceTaskId=d76672b5-abbb-4b18-b601-f2bb2e2adb27
+ceTaskUrl=http://localhost:9000/api/ce/task?id=d76672b5-abbb-4b18-b601-f2bb2e2adb27
